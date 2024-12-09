@@ -56,7 +56,7 @@ html, body {
 					<c:choose>
 
 						<c:when test="${not empty sessionScope.user}">
-							<li class="nav-item"><a class="nav-link" href="#">Welcome,
+							<li class="nav-item"><a class="nav-link" href="#">Welcome 
 									${sessionScope.user.username}</a></li>
 							<li class="nav-item"><a
 								class="nav-link btn btn-outline-danger btn-sm" href="/logout">Logout</a>
