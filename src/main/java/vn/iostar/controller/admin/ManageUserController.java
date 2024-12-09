@@ -11,7 +11,7 @@ import vn.iostar.entity.User;
 import vn.iostar.services.UserService;
 
 @Controller
-@RequestMapping("/admin/manage-users")
+@RequestMapping("admin/manage-users")
 public class ManageUserController {
 	
 	@Autowired
