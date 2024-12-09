@@ -1,4 +1,5 @@
 package vn.iostar.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,18 +41,17 @@ public class LoginController {
 
 			if ("on".equals(rememberMe)) {
 				Cookie cookie = new Cookie("rememberMe", user.getUsername());
-				cookie.setMaxAge(10 * 60); 
-				cookie.setPath("/"); 
-				response.addCookie(cookie); 
+				cookie.setMaxAge(10 * 60);
+				cookie.setPath("/");
+				response.addCookie(cookie);
 			}
-
 			if (user.isRole()) {
-				return "admin/home"; 
+				return "admin/home";
 			} else {
-				return "home"; 
+				return "home";
 			}
 		} else {
-			
+
 			model.addAttribute("error", "Tên người dùng hoặc mật khẩu không đúng.");
 			return "login"; // Quay lại trang đăng nhập với thông báo lỗi
 		}
@@ -72,8 +72,6 @@ public class LoginController {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 
-		
 		return "redirect:/login";
 	}
 }
-
