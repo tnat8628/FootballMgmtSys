@@ -10,8 +10,8 @@
     <style>
         /* Màu nền xanh sân cỏ */
         .bg-grass {
-            background-color: #228B22; /* Màu xanh sân cỏ */
-            /*background-image: linear-gradient(135deg, #32cd32 25%, #228b22 75%);*/
+            background-color: #28a745; /* Màu xanh sân cỏ */
+            background-image: linear-gradient(135deg, #32cd32 25%, #228b22 75%);
             color: #ffffff; /* Màu chữ trắng */
         }
 
