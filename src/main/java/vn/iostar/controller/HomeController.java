@@ -62,5 +62,13 @@ public class HomeController {
             return "home";
          }
     }
+
+    @GetMapping("/field")
+    public String viewAllField(Model model) {
+        List<Field> list = fieldService.findAll();
+        model.addAttribute("list", list);
+        return "/listfield";
+    }
+    
     	
 }
