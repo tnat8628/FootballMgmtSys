@@ -11,6 +11,9 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- Link Bootstrap Icons -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <style>
 /* Chống cuộn quá mức */
 html, body {
@@ -54,9 +57,8 @@ html, body {
 				</form>
 				<ul class="navbar-nav">
 					<c:choose>
-
 						<c:when test="${not empty sessionScope.user}">
-							<li class="nav-item"><a class="nav-link" href="#">Welcome 
+							<li class="nav-item"><a class="nav-link" href="#">Welcome
 									${sessionScope.user.username}</a></li>
 							<li class="nav-item"><a
 								class="nav-link btn btn-outline-danger btn-sm" href="/logout">Logout</a>
@@ -64,8 +66,12 @@ html, body {
 							<li class="nav-item"><a
 								class="nav-link btn btn-outline-danger btn-sm" href="/schedule">Sân
 									đã đặt</a></li>
+							<!-- Nút hồ sơ -->
+							<li class="nav-item"><a
+								class="nav-link btn btn-outline-primary btn-sm" href="/profile">
+									<i class="bi bi-person-fill"></i> Hồ sơ
+							</a></li>
 						</c:when>
-
 						<c:otherwise>
 							<li class="nav-item"><a
 								class="nav-link btn btn-outline-primary btn-sm" href="/login">Login</a>

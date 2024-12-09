@@ -15,6 +15,8 @@ public class CustomSiteMeshFilter extends ConfigurableSiteMeshFilter {
                 .addExcludedPath("/login*")
                 .addExcludedPath("/register*")
                 .addExcludedPath("/login/*")
+                .addExcludedPath("/profile*")
+                .addExcludedPath("/profile/*")
                 .addExcludedPath("/alogin*")
                 .addExcludedPath("/alogin/*")
                 .addExcludedPath("/api/**");

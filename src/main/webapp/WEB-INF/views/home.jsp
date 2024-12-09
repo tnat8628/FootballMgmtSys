@@ -11,8 +11,10 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <style>
-.field-image {
+<style>.field-image {
 	width: 100%;
 	height: auto;
 	border-radius: 10px;
@@ -107,6 +109,10 @@ html, body {
 							<li class="nav-item"><a
 								class="nav-link btn btn-outline-danger btn-sm" href="/schedule">Sân
 									đã đặt</a></li>
+							<li class="nav-item"><a
+								class="nav-link btn btn-outline-primary btn-sm" href="/profile">
+									<i class="bi bi-person-fill"></i> Hồ sơ
+							</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a
