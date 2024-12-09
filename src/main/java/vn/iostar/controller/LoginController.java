@@ -75,4 +75,5 @@ public class LoginController {
 		// Chuyển hướng về trang đăng nhập
 		return "redirect:/login";
 	}
+}
 
