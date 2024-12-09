@@ -46,7 +46,7 @@ public class LoginController {
 			}
 
 			if (user.isRole()) {
-				return "admin/home"; 
+				return "redirect:/admin/home"; 
 			} else {
 				return "home"; 
 			}

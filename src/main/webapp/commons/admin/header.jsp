@@ -1,19 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<header class="bg-dark text-light p-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <h2>Admin Panel</h2>
-        <nav>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a href="/admin" class="nav-link text-light">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/settings" class="nav-link text-light">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/logout" class="nav-link text-light">Logout</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+<!-- Header -->
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark"
+			style="background-color: #2E8B57;">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/admin/home">Admin Dashboard</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item"><a class="nav-link"
+							href="/admin/profile">Profile</a></li>
+						<li class="nav-item"><a class="nav-link" href="/logout">Logout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
