@@ -1,5 +1,7 @@
 package vn.iostar.services;
 
+import java.util.List;
+
 import vn.iostar.entity.User;
 
 public interface UserService {
@@ -22,4 +24,6 @@ public interface UserService {
 	User findByPhone(String phone);
 
 	User findByEmail(String email);
+
+	List<User> findAll();
 }
