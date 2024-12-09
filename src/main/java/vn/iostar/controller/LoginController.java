@@ -51,7 +51,7 @@ public class LoginController {
 				return "home"; 
 			}
 		} else {
-			// Đăng nhập không thành công, thêm thông báo lỗi vào model
+			
 			model.addAttribute("error", "Tên người dùng hoặc mật khẩu không đúng.");
 			return "login"; // Quay lại trang đăng nhập với thông báo lỗi
 		}
@@ -72,7 +72,8 @@ public class LoginController {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 
-		// Chuyển hướng về trang đăng nhập
+		
 		return "redirect:/login";
 	}
+}
 
