@@ -19,7 +19,7 @@ import vn.iostar.services.CategoryService;
 import vn.iostar.services.FieldService;
 
 @Controller
-@RequestMapping({"/", "", "/home"})
+@RequestMapping({"/", "", "/dashboard"})
 public class HomeController {
 	
 	@Autowired
@@ -45,7 +45,7 @@ public class HomeController {
         model.addAttribute("categories", categories);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchCategory", searchCategory);
-        return "home"; // Trả về view home.jsp hoặc home.html tùy vào cấu hình của bạn
+        return "dashboard"; // Trả về view home.jsp hoặc home.html tùy vào cấu hình của bạn
     }
 
     @GetMapping("/fields/{id}")
@@ -59,7 +59,7 @@ public class HomeController {
             return "list-by-category";
          }else {
             model.addAttribute("message", "Category not found!");
-            return "home";
+            return "dashboard";
          }
     }
     	
