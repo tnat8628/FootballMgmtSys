@@ -111,7 +111,7 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Manage Users</h5>
-						<a href="admin/manage-users"
+						<a href="/admin/manage-users"
 							class="btn btn-primary">Manage</a>
 					</div>
 				</div>
@@ -122,7 +122,7 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Manage Bookings</h5>
-						<a href="admin/manage-bookings"
+						<a href="/admin/manage-bookings"
 							class="btn btn-primary">Manage</a>
 					</div>
 				</div>
@@ -133,7 +133,7 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Add New Pricing Rule</h5>
-						<a href="admin/add-rule"
+						<a href="/admin/add-rule"
 							class="btn btn-primary">Add Rule</a>
 					</div>
 				</div>
@@ -144,7 +144,7 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">System Statistics</h5>
-						<a href="admin/system-stats"
+						<a href="/admin/system-stats"
 							class="btn btn-primary">View Stats</a>
 					</div>
 				</div>
