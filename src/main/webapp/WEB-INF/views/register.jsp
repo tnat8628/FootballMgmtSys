@@ -68,6 +68,7 @@ html, body {
 						type="password" class="form-control" id="password" name="password"
 						required>
 				</div>
+<<<<<<< HEAD
 =======
 		<%-- <form action="/register" method="POST">
 		<!-- Hiển thị thông báo lỗi nếu có -->
@@ -79,6 +80,8 @@ html, body {
 					type="text" class="form-control" id="username" name="username"
 					required>
 >>>>>>> 3aab240b3ab10932f9f1c60cfe82b9147fe33c91
+=======
+>>>>>>> ca88fae96335ac26d22a4f591ecd3aa6f9fc7b1d
 			</div>
 			<div class="row">
 				<div class="col-md-6 mb-3">

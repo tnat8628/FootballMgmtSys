@@ -67,6 +67,9 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ca88fae96335ac26d22a4f591ecd3aa6f9fc7b1d
 
 	@Override
 	public User getUserById(int userId) {
@@ -86,6 +89,19 @@ public class UserServiceImpl implements UserService {
 			userRepository.save(user);
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	@Override
+	public void updatePassword(int userId, String newPassword) {
+		User user = getUserById(userId);
+        if (user != null) {
+            user.setPassword(newPassword); // Cập nhật mật khẩu trực tiếp
+            userRepository.save(user);
+        }
+		
+	}
+>>>>>>> ca88fae96335ac26d22a4f591ecd3aa6f9fc7b1d
 
 	@Override
 	public void updatePassword(int userId, String newPassword) {
