@@ -133,7 +133,7 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Manage Users</h5>
-						<a href="<%=request.getContextPath()%>/manage-users"
+						<a href="admin/manage-users"
 							class="btn btn-primary">Manage</a>
 					</div>
 				</div>
