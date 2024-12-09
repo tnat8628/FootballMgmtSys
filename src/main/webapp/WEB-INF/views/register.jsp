@@ -91,7 +91,7 @@ html, body {
 			</div>
 			<button type="submit" class="btn btn-primary register-btn">Register</button>
 		</form> --%>
-		<form id="registerForm">
+		<form id="registerForm" action="/register" method="POST">
     <div class="mb-3">
         <label for="username" class="form-label">Username</label> 
         <input type="text" class="form-control" id="username" name="username" required>

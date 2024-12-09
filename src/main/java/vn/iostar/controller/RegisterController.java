@@ -64,7 +64,7 @@ public class RegisterController {
         newUser.setEmail(email);
         newUser.setFullname(fullname);
         newUser.setPhone(phone);
-     // Gán thời gian hiện tại cho createDate
+        // Gán thời gian hiện tại cho createDate
         newUser.setCreateDate(new Date(System.currentTimeMillis()));
         
         userService.save(newUser);
