@@ -45,29 +45,7 @@ footer {
 </style>
 </head>
 <body>
-	<!-- Header -->
-	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark"
-			style="background-color: #2E8B57;">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="/admin/home">Admin Dashboard</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item"><a class="nav-link"
-							href="/admin/profile">Profile</a></li>
-						<li class="nav-item"><a class="nav-link" href="/logout">Logout</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
+	
 	
 	<!-- Main Content -->
 	<div class="container mt-4">
@@ -101,7 +79,7 @@ footer {
 				<div class="card statistics-card">
 					<div class="card-body">
 						<h5 class="card-title">Total Users</h5>
-						<p class="card-text">250</p>
+						<p class="card-text">${totalUser}</p>
 					</div>
 				</div>
 			</div>
@@ -133,7 +111,7 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Manage Users</h5>
-						<a href="<%=request.getContextPath()%>/manage-users"
+						<a href="/admin/manage-users"
 							class="btn btn-primary">Manage</a>
 					</div>
 				</div>
@@ -144,19 +122,19 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Manage Bookings</h5>
-						<a href="<%=request.getContextPath()%>/manage-bookings"
+						<a href="/admin/manage-bookings"
 							class="btn btn-primary">Manage</a>
 					</div>
 				</div>
 			</div>
 
-			<!-- Thêm sân mới -->
+			<!-- Thêm luật giá mới -->
 			<div class="col-md-3">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Add New Field</h5>
-						<a href="<%=request.getContextPath()%>/add-field"
-							class="btn btn-primary">Add Field</a>
+						<h5 class="card-title">Add New Pricing Rule</h5>
+						<a href="/admin/add-rule"
+							class="btn btn-primary">Add Rule</a>
 					</div>
 				</div>
 			</div>
@@ -166,7 +144,7 @@ footer {
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">System Statistics</h5>
-						<a href="<%=request.getContextPath()%>/system-stats"
+						<a href="/admin/system-stats"
 							class="btn btn-primary">View Stats</a>
 					</div>
 				</div>

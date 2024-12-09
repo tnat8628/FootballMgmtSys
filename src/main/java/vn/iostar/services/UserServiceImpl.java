@@ -1,5 +1,7 @@
 package vn.iostar.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +66,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
+<<<<<<< HEAD
 
 	@Override
 	public User getUserById(int userId) {
@@ -93,5 +96,18 @@ public class UserServiceImpl implements UserService {
         }
 		
 	}
+=======
+>>>>>>> 3aab240b3ab10932f9f1c60cfe82b9147fe33c91
 
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public long count() {
+		return userRepository.count();
+	}
+	
+	
 }

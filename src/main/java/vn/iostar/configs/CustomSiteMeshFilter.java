@@ -10,7 +10,7 @@ public class CustomSiteMeshFilter extends ConfigurableSiteMeshFilter {
 		// Cấu hình decorator cho các trang bình thường
         builder.addDecoratorPath("/**", "/web.jsp")  // Dùng cho tất cả các trang web, ngoại trừ trang admin
                 // Cấu hình decorator riêng cho admin
-                .addDecoratorPath("/admin*", "admin.jsp")
+                .addDecoratorPath("/admin/**", "/admin.jsp")
                 // Loại trừ các trang không cần sử dụng decorator
                 .addExcludedPath("/login*")
                 .addExcludedPath("/register*")

@@ -1,5 +1,7 @@
 package vn.iostar.services;
 
+import java.util.List;
+
 import vn.iostar.entity.User;
 
 public interface UserService {
@@ -22,10 +24,16 @@ public interface UserService {
 
 	User findByEmail(String email);
 
+<<<<<<< HEAD
 	User getUserById(int userId);
 
 	User updateUser(User user);
 
 	void uploadAvatar(int userId, String avatarUrl);
 	void updatePassword(int userId, String newPassword);
+=======
+	List<User> findAll();
+
+	long count();
+>>>>>>> 3aab240b3ab10932f9f1c60cfe82b9147fe33c91
 }

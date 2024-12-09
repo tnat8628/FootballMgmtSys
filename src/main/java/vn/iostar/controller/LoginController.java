@@ -46,7 +46,11 @@ public class LoginController {
 				response.addCookie(cookie);
 			}
 			if (user.isRole()) {
+<<<<<<< HEAD
 				return "admin/home";
+=======
+				return "redirect:/admin/home"; 
+>>>>>>> 3aab240b3ab10932f9f1c60cfe82b9147fe33c91
 			} else {
 				return "home";
 			}
