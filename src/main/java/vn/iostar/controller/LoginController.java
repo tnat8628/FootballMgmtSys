@@ -1,5 +1,4 @@
 package vn.iostar.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,4 +75,4 @@ public class LoginController {
 		// Chuyển hướng về trang đăng nhập
 		return "redirect:/login";
 	}
-}
+
