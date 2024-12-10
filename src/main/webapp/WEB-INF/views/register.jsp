@@ -55,21 +55,6 @@ html, body {
 <body>
 	<div class="register-container">
 		<h3 class="text-center text-dark-green">UTEFF REGISTER</h3>
-<<<<<<< HEAD
-		<form action="/register" method="POST">
-			<div class="row">
-				<div class="col-md-6 mb-3">
-					<label for="username" class="form-label">Username</label> <input
-						type="text" class="form-control" id="username" name="username"
-						required>
-				</div>
-				<div class="col-md-6 mb-3">
-					<label for="password" class="form-label">Password</label> <input
-						type="password" class="form-control" id="password" name="password"
-						required>
-				</div>
-<<<<<<< HEAD
-=======
 		<%-- <form action="/register" method="POST">
 		<!-- Hiển thị thông báo lỗi nếu có -->
 			<c:if test="${not empty error}">
