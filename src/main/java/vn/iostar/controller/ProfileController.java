@@ -1,139 +1,99 @@
 package vn.iostar.controller;
 
 import java.io.File;
-import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.iostar.entity.User;
 import vn.iostar.services.UserService;
-import vn.iostar.utils.Constants;
 
 @Controller
 public class ProfileController {
+
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ServletContext servletContext;
+    @Value("${upload.path}")
+    private String uploadPath;
 
-    private final String DEFAULT_AVATAR = "images/default-avatar.jpg"; // Đường dẫn đến avatar mặc định
+    private final String DEFAULT_AVATAR = "default-avatar.jpg";
 
-    // Hiển thị trang hồ sơ
     @GetMapping("/profile")
-    public String showProfilePage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    public String showProfilePage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            // Người dùng chưa đăng nhập
+            model.addAttribute("message", "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
             return "redirect:/login";
         }
-        // Set default avatar if not set
-        if (user.getAvatar() == null || user.getAvatar().trim().isEmpty()) {
+
+        // Kiểm tra avatar hợp lệ
+        File avatarFile = new File(uploadPath, user.getAvatar());
+        if (user.getAvatar() == null || user.getAvatar().trim().isEmpty() || !avatarFile.exists()) {
             user.setAvatar(DEFAULT_AVATAR);
-            userService.uploadAvatar(user.getUserId(), DEFAULT_AVATAR); // Optionally update in database
         }
-        request.setAttribute("user", user);
+
+        // Tạo URL avatar
+        String avatarUrl = user.getAvatar().equals(DEFAULT_AVATAR)
+                ? "/images/" + DEFAULT_AVATAR
+                : "/uploads/" + user.getAvatar() + "?v=" + System.currentTimeMillis();
+
+        model.addAttribute("user", user);
+        model.addAttribute("avatarUrl", avatarUrl);
         return "profile";
     }
 
-    // Cập nhật thông tin người dùng và mật khẩu
     @PostMapping("/profile/update")
-    public String updateUserProfile(
-            @RequestParam("fullname") String fullname,
-            @RequestParam("email") String email,
-            @RequestParam("phone") String phone,
-            @RequestParam(value = "newPassword", required = false) String newPassword,
-            @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
-            @RequestParam(value = "avatar", required = false) MultipartFile avatarFile,
-            HttpServletRequest request) {
-        
-        HttpSession session = request.getSession();
+    public String updateUserProfile(@RequestParam("fullname") String fullname, @RequestParam("email") String email,
+                                     @RequestParam("phone") String phone,
+                                     @RequestParam(value = "avatar", required = false) MultipartFile avatarFile,
+                                     @RequestParam(value = "password", required = false) String password,
+                                     HttpSession session, Model model) {
+
         User currentUser = (User) session.getAttribute("user");
         if (currentUser == null) {
-            // Người dùng chưa đăng nhập
+            model.addAttribute("message", "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
             return "redirect:/login";
         }
 
-        // Validate new password and confirm password
-        if (newPassword != null && !newPassword.trim().isEmpty()) {
-            if (!newPassword.equals(confirmPassword)) {
-                request.setAttribute("message", "New password and confirm password do not match.");
-                request.setAttribute("user", currentUser);
-                return "profile";
-            }
-        }
-
-        String oldAvatar = currentUser.getAvatar();
-
-        // Xử lý upload avatar mới
-        String fname = "";
-        String uploadPath = Constants.DIR; // Đường dẫn đến thư mục upload
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
-
         try {
+            // Xử lý avatar mới (nếu có)
             if (avatarFile != null && !avatarFile.isEmpty()) {
-                String originalFilename = Paths.get(avatarFile.getOriginalFilename()).getFileName().toString();
-                int index = originalFilename.lastIndexOf(".");
-                String ext = originalFilename.substring(index + 1);
-                fname = System.currentTimeMillis() + "." + ext; // Tạo tên file mới để tránh trùng lặp
-
-                // Upload file
-                File destination = new File(uploadDir, fname);
+                String fileName = System.currentTimeMillis() + "_" + avatarFile.getOriginalFilename();
+                File destination = new File(uploadPath, fileName);
                 avatarFile.transferTo(destination);
-
-                // Lưu tên file vào đối tượng
-                currentUser.setAvatar(fname);
-            } else if (oldAvatar == null || oldAvatar.trim().isEmpty()) {
-                // Giữ hình ảnh mặc định nếu không có hình mới
-                currentUser.setAvatar("default-avatar.jpg");
-            } else {
-                // Giữ hình ảnh cũ
-                currentUser.setAvatar(oldAvatar);
+                currentUser.setAvatar(fileName);
             }
+
+            // Cập nhật thông tin người dùng
+            currentUser.setFullname(fullname);
+            currentUser.setEmail(email);
+            currentUser.setPhone(phone);
+
+            // Cập nhật mật khẩu nếu được nhập
+            if (password != null && !password.isEmpty()) {
+                currentUser.setPassword(password); // Mã hóa mật khẩu nếu cần
+            }
+
+            userService.updateUser(currentUser);
+            session.setAttribute("user", currentUser);
+
+            model.addAttribute("message", "Cập nhật hồ sơ thành công.");
         } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("message", "Error uploading avatar. Using existing avatar.");
-            currentUser.setAvatar(oldAvatar != null && !oldAvatar.trim().isEmpty() ? oldAvatar : "default-avatar.jpg");
+            model.addAttribute("message", "Có lỗi xảy ra khi cập nhật hồ sơ.");
         }
 
-        // Cập nhật thông tin cho user
-        currentUser.setFullname(fullname);
-        currentUser.setEmail(email);
-        currentUser.setPhone(phone);
-        currentUser.setAvatar(fname); // Đảm bảo đường dẫn tương đối được lưu
-
-        // Xử lý mật khẩu
-        if (newPassword != null && !newPassword.trim().isEmpty()) {
-            // Cập nhật mật khẩu (không mã hóa)
-            currentUser.setPassword(newPassword);
-        }
-
-        // Gọi service update user
-        try {
-            User updatedUser = userService.updateUser(currentUser);
-            session.setAttribute("user", updatedUser);
-            request.setAttribute("message", "Profile updated successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("message", "Error updating profile.");
-        }
-
-        request.setAttribute("user", currentUser);
-        return "profile";
+        model.addAttribute("user", currentUser);
+        return "redirect:/profile";
     }
-
     // Đăng xuất người dùng
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {

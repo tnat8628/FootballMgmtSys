@@ -29,10 +29,11 @@ public interface UserService {
 	User updateUser(User user);
 
 	void uploadAvatar(int userId, String avatarUrl);
-
+	void updateAvatar(int userId, String avatarPath);
 	void updatePassword(int userId, String newPassword);
 	
 	List<User> findAll();
 
 	long count();
+	
 }
