@@ -67,6 +67,11 @@ public class RegisterController {
         // Gán thời gian hiện tại cho createDate
         newUser.setCreateDate(new Date(System.currentTimeMillis()));
         
+     // Gán avatar mặc định nếu chưa có
+        if (newUser.getAvatar() == null || newUser.getAvatar().trim().isEmpty()) {
+            newUser.setAvatar("default-avatar.jpg");
+        }
+        
         userService.save(newUser);
 
         // Đăng ký người dùng
