@@ -22,7 +22,7 @@ html, body {
 
 .register-container {
 	width: 100%;
-	max-width: 500px; /* Tăng kích thước khung đăng ký */
+	max-width: 700px; /* Tăng kích thước khung đăng ký */
 	padding: 2rem;
 	background-color: #fff;
 	border: 1px solid #ccc; /* Thêm viền để khung đăng ký không bo góc */
@@ -55,6 +55,21 @@ html, body {
 <body>
 	<div class="register-container">
 		<h3 class="text-center text-dark-green">UTEFF REGISTER</h3>
+<<<<<<< HEAD
+		<form action="/register" method="POST">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="username" class="form-label">Username</label> <input
+						type="text" class="form-control" id="username" name="username"
+						required>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="password" class="form-label">Password</label> <input
+						type="password" class="form-control" id="password" name="password"
+						required>
+				</div>
+<<<<<<< HEAD
+=======
 		<%-- <form action="/register" method="POST">
 		<!-- Hiển thị thông báo lỗi nếu có -->
 			<c:if test="${not empty error}">
@@ -64,30 +79,32 @@ html, body {
 				<label for="username" class="form-label">Username</label> <input
 					type="text" class="form-control" id="username" name="username"
 					required>
+>>>>>>> 3aab240b3ab10932f9f1c60cfe82b9147fe33c91
+=======
+>>>>>>> ca88fae96335ac26d22a4f591ecd3aa6f9fc7b1d
 			</div>
-			<div class="mb-3">
-				<label for="password" class="form-label">Password</label> <input
-					type="password" class="form-control" id="password" name="password"
-					required>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="confirm-password" class="form-label">Confirm Password</label> <input
+						type="password" class="form-control" id="confirm-password" name="confirm-password"
+						required>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="email" class="form-label">Email</label> <input
+						type="email" class="form-control" id="email" name="email"
+						required>
+				</div>
 			</div>
-			<div class="mb-3">
-				<label for="confirm-password" class="form-label">Confirm Password</label> <input
-					type="password" class="form-control" id="confirm-password" name="confirm-password"
-					required>
-			</div>
-			<div class="mb-3">
-				<label for="email" class="form-label">Email</label> <input
-					type="email" class="form-control" id="email" name="email"
-					required>
-			</div>
-			<div class="mb-3">
-				<label for="fullname" class="form-label">Full Name</label> <input
-					type="text" class="form-control" id="fullname" name="fullname"
-					required>
-			</div>
-			<div class="mb-3">
-				<label for="phone" class="form-label">Phone Number</label> <input
-					type="text" class="form-control" id="phone" name="phone">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="fullname" class="form-label">Full Name</label> <input
+						type="text" class="form-control" id="fullname" name="fullname"
+						required>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="phone" class="form-label">Phone Number</label> <input
+						type="text" class="form-control" id="phone" name="phone">
+				</div>
 			</div>
 			<button type="submit" class="btn btn-primary register-btn">Register</button>
 		</form> --%>
