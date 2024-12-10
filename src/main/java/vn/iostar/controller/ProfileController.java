@@ -55,73 +55,37 @@ public class ProfileController {
             @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
             @RequestParam(value = "avatar", required = false) MultipartFile avatarFile,
             HttpServletRequest request) {
-        
+
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
+
         if (currentUser == null) {
             // Người dùng chưa đăng nhập
             return "redirect:/login";
         }
 
-        // Validate new password and confirm password
+        // Kiểm tra và xử lý mật khẩu mới
         if (newPassword != null && !newPassword.trim().isEmpty()) {
             if (!newPassword.equals(confirmPassword)) {
                 request.setAttribute("message", "New password and confirm password do not match.");
                 request.setAttribute("user", currentUser);
                 return "profile";
             }
+            currentUser.setPassword(newPassword); // Giả định mật khẩu chưa mã hóa, mã hóa nếu cần
         }
 
+        // Xử lý avatar upload
         String oldAvatar = currentUser.getAvatar();
+        String avatarFilename = handleAvatarUpload(avatarFile, oldAvatar);
 
-        // Xử lý upload avatar mới
-        String fname = "";
-        String uploadPath = Constants.DIR; // Đường dẫn đến thư mục upload
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
-
-        try {
-            if (avatarFile != null && !avatarFile.isEmpty()) {
-                String originalFilename = Paths.get(avatarFile.getOriginalFilename()).getFileName().toString();
-                int index = originalFilename.lastIndexOf(".");
-                String ext = originalFilename.substring(index + 1);
-                fname = System.currentTimeMillis() + "." + ext; // Tạo tên file mới để tránh trùng lặp
-
-                // Upload file
-                File destination = new File(uploadDir, fname);
-                avatarFile.transferTo(destination);
-
-                // Lưu tên file vào đối tượng
-                currentUser.setAvatar(fname);
-            } else if (oldAvatar == null || oldAvatar.trim().isEmpty()) {
-                // Giữ hình ảnh mặc định nếu không có hình mới
-                currentUser.setAvatar("default-avatar.jpg");
-            } else {
-                // Giữ hình ảnh cũ
-                currentUser.setAvatar(oldAvatar);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("message", "Error uploading avatar. Using existing avatar.");
-            currentUser.setAvatar(oldAvatar != null && !oldAvatar.trim().isEmpty() ? oldAvatar : "default-avatar.jpg");
-        }
-
-        // Cập nhật thông tin cho user
+        // Cập nhật thông tin người dùng
         currentUser.setFullname(fullname);
         currentUser.setEmail(email);
         currentUser.setPhone(phone);
-        currentUser.setAvatar(fname); // Đảm bảo đường dẫn tương đối được lưu
+        currentUser.setAvatar(avatarFilename);
 
-        // Xử lý mật khẩu
-        if (newPassword != null && !newPassword.trim().isEmpty()) {
-            // Cập nhật mật khẩu (không mã hóa)
-            currentUser.setPassword(newPassword);
-        }
-
-        // Gọi service update user
         try {
+            // Lưu thông tin người dùng
             User updatedUser = userService.updateUser(currentUser);
             session.setAttribute("user", updatedUser);
             request.setAttribute("message", "Profile updated successfully.");
@@ -131,7 +95,34 @@ public class ProfileController {
         }
 
         request.setAttribute("user", currentUser);
-        return "profile";
+        return "profile"; // Trả về view profile.jsp
+    }
+
+    private String handleAvatarUpload(MultipartFile avatarFile, String oldAvatar) {
+        final String uploadPath = "E:\\upload"; // Đường dẫn lưu file
+        File uploadDir = new File(uploadPath);
+
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        try {
+            if (avatarFile != null && !avatarFile.isEmpty()) {
+                String originalFilename = Paths.get(avatarFile.getOriginalFilename()).getFileName().toString();
+                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+                String newFileName = System.currentTimeMillis() + "." + fileExtension;
+
+                File destinationFile = new File(uploadDir, newFileName);
+                avatarFile.transferTo(destinationFile);
+
+                return newFileName;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Trả về avatar cũ hoặc avatar mặc định nếu có lỗi
+        return (oldAvatar != null && !oldAvatar.isEmpty()) ? oldAvatar : "default-avatar.jpg";
     }
 
     // Đăng xuất người dùng
