@@ -72,61 +72,6 @@ html, body {
 </style>
 </head>
 <body>
-	<!-- Header -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light"
-		style="height: 2cm;">
-		<div class="container-fluid">
-			<a class="navbar-brand fs-3 fw-bold text-dark-green">UTEFF</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav"
-				aria-controls="navbarNav" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link" href="/home">Home</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="/field">Sân</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="/contact">Contact</a>
-					</li>
-				</ul>
-				<!-- Thanh Tìm Kiếm -->
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search"
-						placeholder="Tìm kiếm..." aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Tìm</button>
-				</form>
-				<ul class="navbar-nav">
-					<c:choose>
-						<c:when test="${not empty sessionScope.user}">
-							<li class="nav-item"><a class="nav-link" href="#">Welcome
-									${sessionScope.user.username}</a></li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-danger btn-sm" href="/logout">Logout</a>
-							</li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-danger btn-sm" href="/schedule">Sân
-									đã đặt</a></li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-primary btn-sm" href="/profile">
-									<i class="bi bi-person-fill"></i> Hồ sơ
-							</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-primary btn-sm" href="/login">Login</a>
-							</li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-success btn-sm" href="/register">Register</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</div>
-		</div>
-	</nav>
 
 	<!-- Main Content -->
 	<div class="container mt-4">
