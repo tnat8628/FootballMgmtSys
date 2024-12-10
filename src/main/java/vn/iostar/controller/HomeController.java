@@ -19,7 +19,7 @@ import vn.iostar.services.CategoryService;
 import vn.iostar.services.FieldService;
 
 @Controller
-@RequestMapping({"/", "", "/dashboard"})
+@RequestMapping({"/", "", "/home"})
 public class HomeController {
 	
 	@Autowired
