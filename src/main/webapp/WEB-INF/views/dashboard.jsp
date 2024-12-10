@@ -13,20 +13,6 @@
 </head>
 <body class="bg-white text-dark">
 
-    <!-- Header -->
-    <header class="sticky-header bg-dark-green text-white d-flex align-items-center" style="height: 2cm;">
-        <div class="container d-flex justify-content-between align-items-center">
-            <!-- Tiêu đề -->
-            <h1 class="m-0 fs-4">UTE Football</h1>
-
-            <!-- Nút điều hướng -->
-            <div>
-                <a href="/login" class="text-white me-3 text-decoration-none btn-hover">Đăng nhập</a>
-                <a href="/register" class="text-white text-decoration-none btn-hover">Đăng ký</a>
-            </div>
-        </div>
-    </header>
-
     <!-- Carousel -->
     <div id="carouselExampleIndicators"
         class="carousel slide mt-4 container" data-bs-ride="carousel" data-bs-interval="3000">

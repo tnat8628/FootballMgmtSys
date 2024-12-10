@@ -1,6 +1,6 @@
 package vn.iostar.utils;
 
 public class Constants {
-	public static final String DIR = "E://upload";
+	public static final String DIR = "C://WebProgramming/upload";
 
 }

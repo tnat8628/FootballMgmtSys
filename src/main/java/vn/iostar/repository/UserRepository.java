@@ -15,6 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	User findByEmail(String email);
 
 	User findByPhone(String phone);
+	
 	@Modifying
     @Query("UPDATE User u SET u.avatar = :avatarPath WHERE u.userId = :userId")
     void updateAvatar(int userId, String avatarPath);
