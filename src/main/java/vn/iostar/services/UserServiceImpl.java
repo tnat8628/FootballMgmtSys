@@ -105,6 +105,12 @@ public class UserServiceImpl implements UserService {
 	public long count() {
 		return userRepository.count();
 	}
+
+	@Override
+	public void updateAvatar(int userId, String avatarPath) {
+		userRepository.updateAvatar(userId, avatarPath);
+		
+	}
 	
 	
 }
