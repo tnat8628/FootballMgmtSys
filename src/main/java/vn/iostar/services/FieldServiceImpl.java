@@ -92,4 +92,6 @@ public class FieldServiceImpl implements FieldService{
     public List<Field> findByCategory(Category category) {
         return fieldRepository.findByCategory(category);
     }
+	
+	
 }

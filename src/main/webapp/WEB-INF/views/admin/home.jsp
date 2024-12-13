@@ -132,9 +132,9 @@ footer {
 			<div class="col-md-3">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Add New Pricing Rule</h5>
-						<a href="/admin/add-rule"
-							class="btn btn-primary">Add Rule</a>
+						<h5 class="card-title">Manage Pricing Rule</h5>
+						<a href="/admin/pricingrule"
+							class="btn btn-primary">Manage</a>
 					</div>
 				</div>
 			</div>
