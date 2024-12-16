@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import vn.iostar.entity.Category;
 import vn.iostar.entity.Field;
+import vn.iostar.entity.User;
 import vn.iostar.services.CategoryService;
 import vn.iostar.services.FieldService;
 
@@ -30,7 +33,16 @@ public class HomeController {
 	
 	// Hiển thị trang chủ, bao gồm cả danh sách loại sân
     @GetMapping
-    public String home(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
+    public String home(Model model, @RequestParam(value = "keyword", required = false) String keyword, HttpServletRequest request) {
+    	//
+    	HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("user");
+            if (user != null && user.isRole()) { // Kiểm tra nếu user là admin
+                return "redirect:/admin/home";
+            }
+        }
+    	
     	// Lấy danh sách các loại sân từ cơ sở dữ liệu
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
