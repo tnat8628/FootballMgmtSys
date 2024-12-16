@@ -102,6 +102,12 @@ h2 {
 				</div>
 				<!-- Form cập nhật thông tin người dùng và mật khẩu -->
 				<div class="col-md-8">
+					<!-- Thông báo -->
+					<c:if test="${not empty message}">
+						<div class="alert alert-danger mt-4 text-center">
+							<c:out value="${message}" />
+						</div>
+					</c:if>
 					<form action="/profile/update" method="post"
 						enctype="multipart/form-data">
 						<div class="mb-3">
@@ -119,14 +125,23 @@ h2 {
 								type="text" class="form-control" id="phone" name="phone"
 								value="<c:out value='${user.phone}'/>" required>
 						</div>
-						<hr>
-						<h4>Change Password</h4>
+						<div class="mb-3">
+							<h4>Change Password</h4>
+							<label for="oldPassword" class="form-label">Current
+								Password</label> <input type="password" class="form-control"
+								id="oldPassword" name="oldPassword">
+						</div>
 						<div class="mb-3">
 							<label for="password" class="form-label">New Password</label> <input
 								type="password" class="form-control" id="password"
 								name="password">
 						</div>
-						<hr>
+						<div class="mb-3">
+							<label for="confirmPassword" class="form-label">Confirm
+								New Password</label> <input type="password" class="form-control"
+								id="confirmPassword" name="confirmPassword">
+						</div>
+
 						<div class="mb-3">
 							<label for="avatar" class="form-label">Update Avatar</label> <input
 								type="file" class="form-control" id="avatar" name="avatar"
@@ -137,10 +152,7 @@ h2 {
 					</form>
 				</div>
 			</div>
-			<!-- Thông báo -->
-			<c:if test="${not empty message}">
-				<div class="alert alert-info mt-4 text-center">${message}</div>
-			</c:if>
+			
 		</div>
 	</div>
 

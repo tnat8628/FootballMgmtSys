@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -59,51 +60,61 @@ public class ProfileController {
 
 	@PostMapping("/profile/update")
 	public String updateUserProfile(@RequestParam("fullname") String fullname, @RequestParam("email") String email,
-			@RequestParam("phone") String phone,
-			@RequestParam(value = "avatar", required = false) MultipartFile avatarFile,
-			@RequestParam(value = "password", required = false) String password, HttpSession session, Model model) {
+	        @RequestParam("phone") String phone,
+	        @RequestParam(value = "avatar", required = false) MultipartFile avatarFile,
+	        @RequestParam(value = "oldPassword", required = false) String oldPassword,
+	        @RequestParam(value = "password", required = false) String password,
+	        @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
+	        HttpSession session, RedirectAttributes redirectAttributes) {
 
-		User currentUser = (User) session.getAttribute("user");
-		if (currentUser == null) {
-			model.addAttribute("message", "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
-			return "redirect:/login";
-		}
+	    User currentUser = (User) session.getAttribute("user");
+	    if (currentUser == null) {
+	        redirectAttributes.addFlashAttribute("message", "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+	        return "redirect:/login";
+	    }
 
-		try {
-			// Xử lý avatar mới (nếu có)
-			if (avatarFile != null && !avatarFile.isEmpty()) {
-				String fileName = System.currentTimeMillis() + "_" + avatarFile.getOriginalFilename();
-				File destination = new File(uploadPath, fileName);
-				avatarFile.transferTo(destination);
-				currentUser.setAvatar(fileName);
-			} else {
-				// Nếu không có avatar mới, giữ nguyên avatar hiện tại hoặc sử dụng avatar mặc
-				// định
-				if (currentUser.getAvatar() == null || currentUser.getAvatar().trim().isEmpty()) {
-					currentUser.setAvatar("default-avatar.jpg");
-				}
-			}
+	    try {
+	        // Xử lý avatar mới (nếu có)
+	        if (avatarFile != null && !avatarFile.isEmpty()) {
+	            String fileName = System.currentTimeMillis() + "_" + avatarFile.getOriginalFilename();
+	            File destination = new File(uploadPath, fileName);
+	            avatarFile.transferTo(destination);
+	            currentUser.setAvatar(fileName);
+	        } else {
+	            if (currentUser.getAvatar() == null || currentUser.getAvatar().trim().isEmpty()) {
+	                currentUser.setAvatar(DEFAULT_AVATAR);
+	            }
+	        }
 
-			// Cập nhật thông tin người dùng
-			currentUser.setFullname(fullname);
-			currentUser.setEmail(email);
-			currentUser.setPhone(phone);
+	        // Cập nhật thông tin người dùng
+	        currentUser.setFullname(fullname);
+	        currentUser.setEmail(email);
+	        currentUser.setPhone(phone);
 
-			// Cập nhật mật khẩu nếu được nhập
-			if (password != null && !password.isEmpty()) {
-				currentUser.setPassword(password); // Mã hóa mật khẩu nếu cần
-			}
+	        // Cập nhật mật khẩu nếu được nhập
+	        if (password != null && !password.isEmpty()) {
+	            if (oldPassword == null || oldPassword.isEmpty() || !oldPassword.equals(currentUser.getPassword())) {
+	                redirectAttributes.addFlashAttribute("message", "Mật khẩu cũ không chính xác.");
+	                return "redirect:/profile";
+	            }
 
-			userService.updateUser(currentUser);
-			session.setAttribute("user", currentUser);
+	            if (!password.equals(confirmPassword)) {
+	                redirectAttributes.addFlashAttribute("message", "Xác nhận mật khẩu mới không khớp.");
+	                return "redirect:/profile";
+	            }
 
-			model.addAttribute("message", "Cập nhật hồ sơ thành công.");
-		} catch (Exception e) {
-			model.addAttribute("message", "Có lỗi xảy ra khi cập nhật hồ sơ.");
-		}
+	            currentUser.setPassword(password);
+	        }
 
-		model.addAttribute("user", currentUser);
-		return "redirect:/profile";
+	        userService.updateUser(currentUser);
+	        session.setAttribute("user", currentUser);
+
+	        redirectAttributes.addFlashAttribute("message", "Cập nhật hồ sơ thành công.");
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("message", "Có lỗi xảy ra khi cập nhật hồ sơ.");
+	    }
+
+	    return "redirect:/profile";
 	}
 
 	// Đăng xuất người dùng

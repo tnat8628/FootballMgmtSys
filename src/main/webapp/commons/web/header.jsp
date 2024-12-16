@@ -30,6 +30,12 @@ html, body {
 </style>
 </head>
 <body>
+	<c:set var="avatarUrl"
+		value="${
+    empty sessionScope.user.avatar or sessionScope.user.avatar eq 'default-avatar.jpg'
+    ? '/images/default-avatar.jpg'
+    : '/uploads/'.concat(sessionScope.user.avatar)}" />
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light"
 		style="height: 2cm;">
 		<div class="container-fluid">
@@ -66,11 +72,14 @@ html, body {
 							<li class="nav-item"><a
 								class="nav-link btn btn-outline-danger btn-sm" href="/schedule">Sân
 									đã đặt</a></li>
-							<!-- Nút hồ sơ -->
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-primary btn-sm" href="/profile">
-									<i class="bi bi-person-fill"></i> Hồ sơ
-							</a></li>
+							<li class="nav-item d-flex align-items-center">
+								<!-- Avatar (không có liên kết) --> <img
+								src="<c:out value='${avatarUrl}' />"
+								style="width: 30px; height: 30px; border-radius: 50%; margin-right: 8px;"
+								alt="Avatar"> <!-- Nút "Hồ sơ" có liên kết --> <a
+								class="av-link btn btn-outline-primary btn-sm" href="/profile">Hồ sơ</a>
+							</li>
+
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a
