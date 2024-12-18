@@ -27,7 +27,9 @@ html, body {
 .navbar-custom {
     background-color: #006600; /* Xanh lá đậm */
 }
+
 </style>
+
 </head>
 <body>
 	<c:set var="avatarUrl"
@@ -58,21 +60,22 @@ html, body {
 				<ul class="navbar-nav">
 					<c:choose>
 						<c:when test="${not empty sessionScope.user}">
-							<li class="nav-item"><a class="nav-link" href="#">Welcome
-									${sessionScope.user.username}</a></li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-danger btn-sm" href="/logout">Logout</a>
+							<li class="nav-item">
+								<a class="nav-link text-white" href="#">Welcome ${sessionScope.user.username}</a>
 							</li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-danger btn-sm" href="/schedule">Sân
-									đã đặt</a></li>
+							<li class="nav-item">
+							<a class="nav-link btn btn-sm text-white" href="/logout">Logout</a>
+							</li>
+							<li class="nav-item">
+							<a class="nav-link btn btn-sm text-white" href="/schedule">Sân đã đặt</a>
+							</li>
 							<li class="nav-item d-flex align-items-center">
-								<!-- Avatar (không có liên kết) --> <img
-								src="<c:out value='${avatarUrl}' />"
-								style="width: 30px; height: 30px; border-radius: 50%; margin-right: 8px;"
-								alt="Avatar"> <!-- Nút "Hồ sơ" có liên kết --> <a
-								class="av-link btn btn-outline-primary btn-sm" href="/profile">Hồ sơ</a>
-							</li>
+    							<!-- Avatar được bọc trong thẻ <a> để có thể bấm vào và chuyển hướng đến hồ sơ -->
+    							<a href="/profile">
+        							<img src="<c:out value='${avatarUrl}' />"
+             						style="width: 40px; height: 40px; border-radius: 50%; margin-right: 8px;"
+             						alt="Avatar">
+    							</a>
 
 						</c:when>
 						<c:otherwise>
