@@ -36,10 +36,10 @@ html, body {
     ? '/images/default-avatar.jpg'
     : '/uploads/'.concat(sessionScope.user.avatar)}" />
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom"
 		style="height: 2cm;">
 		<div class="container-fluid">
-			<a class="navbar-brand fs-3 fw-bold text-dark-green" href="/">UTEFF</a>
+			<a class="navbar-brand fs-3 fw-bold text-white" href="/">UTEFF</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -48,17 +48,13 @@ html, body {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link" href="/field">Sân</a>
+					<li class="nav-item"><a class="nav-link text-white" href="/field">Sân</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="/contact">Contact</a>
+					<li class="nav-item"><a class="nav-link text-white" href="/contact">Liên hệ</a>
+					</li>
+					<li class="nav-item"><a class="nav-link text-white" href="/instruction">Hướng dẫn</a>
 					</li>
 				</ul>
-				<!-- Thanh Tìm Kiếm -->
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search"
-						placeholder="Tìm kiếm..." aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Tìm</button>
-				</form>
 				<ul class="navbar-nav">
 					<c:choose>
 						<c:when test="${not empty sessionScope.user}">
@@ -81,10 +77,10 @@ html, body {
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a
-								class="nav-link btn btn-outline-primary btn-sm" href="/login">Login</a>
+								class="nav-link btn btn-outline-primary btn-sm text-white" href="/login">Login</a>
 							</li>
 							<li class="nav-item"><a
-								class="nav-link btn btn-outline-success btn-sm" href="/register">Register</a>
+								class="nav-link btn btn-outline-success btn-sm text-white" href="/register">Register</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
