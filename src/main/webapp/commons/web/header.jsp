@@ -24,8 +24,8 @@ html, body {
 	overflow-x: hidden; /* Ngăn cuộn ngang */
 }
 
-.text-dark-green {
-	color: #2E8B57 !important;
+.navbar-custom {
+    background-color: #006600; /* Xanh lá đậm */
 }
 </style>
 </head>
