@@ -77,7 +77,7 @@ body {
 							<a class="nav-link btn btn-sm text-white" href="/logout">Logout</a>
 							</li>
 							<li class="nav-item">
-							<a class="nav-link btn btn-sm text-white" href="/schedule">Sân đã đặt</a>
+							<a class="nav-link btn btn-sm text-white" href="/booking/schedule/${sessionScope.user.userId}">Sân đã đặt</a>
 							</li>
 							<li class="nav-item d-flex align-items-center">
     							<!-- Avatar được bọc trong thẻ <a> để có thể bấm vào và chuyển hướng đến hồ sơ -->

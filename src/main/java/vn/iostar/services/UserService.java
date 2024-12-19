@@ -2,6 +2,7 @@ package vn.iostar.services;
 
 import java.util.List;
 
+
 import vn.iostar.entity.User;
 
 public interface UserService {
@@ -24,7 +25,7 @@ public interface UserService {
 
 	User findByEmail(String email);
 
-	User getUserById(int userId);
+	User getUserById(Integer userId);
 
 	User updateUser(User user);
 

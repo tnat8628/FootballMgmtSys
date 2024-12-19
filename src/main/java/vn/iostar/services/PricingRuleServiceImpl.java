@@ -52,5 +52,7 @@ public class PricingRuleServiceImpl implements PricingRuleService{
 		pricingRuleRepository.deleteById(id);
 	}
 	
-	
+	public List<PricingRule> findByFieldId(int fieldId) {
+        return pricingRuleRepository.findByField_FieldId(fieldId);
+    }
 }
