@@ -1,13 +1,8 @@
 package vn.iostar.controller;
 
-import java.lang.classfile.ClassFile.Option;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +26,7 @@ import vn.iostar.model.FieldModel;
 import vn.iostar.services.BookingService;
 import vn.iostar.services.FieldService;
 import vn.iostar.services.PricingRuleService;
+import vn.iostar.services.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +47,9 @@ public class BookingController {
 
     @Autowired
     PricingRuleService pricingRuleService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     private HttpSession session;
@@ -154,4 +151,14 @@ public class BookingController {
     
         return total;
     }
+
+    @GetMapping("/schedule/{userId}")
+    public String showListBooked(@PathVariable("userId") Integer userId, Model model) {
+        User user = userService.getUserById(userId);
+        List<Booking> list = bookingService.findBookingsByUser(user);
+
+        model.addAttribute("list", list);
+        return "listBooked";
+    }
+    
 }

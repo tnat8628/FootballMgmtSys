@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="mb-4">List of Categories</h1>
+        <h1 class="mb-4">List of Fields</h1>
 
         <!-- Hiển thị thông báo nếu có -->
         <c:if test="${not empty message}">

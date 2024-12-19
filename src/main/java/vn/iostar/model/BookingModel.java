@@ -1,5 +1,6 @@
 package vn.iostar.model;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import jakarta.persistence.Column;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vn.iostar.entity.Field;
+import vn.iostar.entity.User;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +21,10 @@ public class BookingModel {
     @JoinColumn(name = "FieldID")
     private Field field;
 
+    @ManyToOne
+    @JoinColumn(name = "UserID")
+    private User user;
+
     @Column(name = "BookingDate")
     private Date bookingDate;
 
@@ -27,6 +33,9 @@ public class BookingModel {
 
     @NotNull(message = "End time is required")
     private String endTime;
+    
+    @Column(name = "TotalPrice")
+	private BigDecimal totalPrice;
 
     private String status;
 

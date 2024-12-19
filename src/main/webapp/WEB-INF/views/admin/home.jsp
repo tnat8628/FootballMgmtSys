@@ -89,7 +89,7 @@ footer {
 				<div class="card statistics-card">
 					<div class="card-body">
 						<h5 class="card-title">Bookings Today</h5>
-						<p class="card-text">35</p>
+						<p class="card-text">${totalBooking}</p>
 					</div>
 				</div>
 			</div>
