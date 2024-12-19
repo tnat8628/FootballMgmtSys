@@ -26,12 +26,22 @@ html, body {
 
 .navbar-custom {
     background-color: #006600; /* Xanh lá đậm */
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+body {
+    padding-top: 70px; /* Điều chỉnh theo chiều cao thực tế của header */
 }
 
 </style>
 
 </head>
 <body>
+
 	<c:set var="avatarUrl"
 		value="${
     empty sessionScope.user.avatar or sessionScope.user.avatar eq 'default-avatar.jpg'
