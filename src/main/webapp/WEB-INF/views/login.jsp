@@ -75,6 +75,9 @@ html, body {
 					for="remember-me">Remember me</label>
 			</div>
 			<button type="submit" class="btn btn-primary login-btn">Login</button>
+			<!-- Thêm nút Quên mật khẩu -->
+			<div class="mt-3 text-center"> <a href="/forgot-password">Forget Password</a>
+		</div>
 		</form>
 		<div class="mt-3 text-center">
 			Haven't got an account? <a href="/register">Register</a>

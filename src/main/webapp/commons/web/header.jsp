@@ -24,16 +24,24 @@ html, body {
 	overflow-x: hidden; /* Ngăn cuộn ngang */
 }
 
-.text-dark-green {
-	color: #2E8B57 !important;
+.navbar-custom {
+    background-color: #006600; /* Xanh lá đậm */
 }
+
 </style>
+
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+	<c:set var="avatarUrl"
+		value="${
+    empty sessionScope.user.avatar or sessionScope.user.avatar eq 'default-avatar.jpg'
+    ? '/images/default-avatar.jpg'
+    : '/uploads/'.concat(sessionScope.user.avatar)}" />
+
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom"
 		style="height: 2cm;">
 		<div class="container-fluid">
-			<a class="navbar-brand fs-3 fw-bold text-dark-green">UTEFF</a>
+			<a class="navbar-brand fs-3 fw-bold text-white" href="/">UTEFF</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -42,42 +50,40 @@ html, body {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link" href="/home">Home</a>
+					<li class="nav-item"><a class="nav-link text-white" href="/field">Sân</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="/field">Sân</a>
+					<li class="nav-item"><a class="nav-link text-white" href="/contact">Liên hệ</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="/contact">Contact</a>
+					<li class="nav-item"><a class="nav-link text-white" href="/instruction">Hướng dẫn</a>
 					</li>
 				</ul>
-				<!-- Thanh Tìm Kiếm -->
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search"
-						placeholder="Tìm kiếm..." aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Tìm</button>
-				</form>
 				<ul class="navbar-nav">
 					<c:choose>
 						<c:when test="${not empty sessionScope.user}">
-							<li class="nav-item"><a class="nav-link" href="#">Welcome
-									${sessionScope.user.username}</a></li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-danger btn-sm" href="/logout">Logout</a>
+							<li class="nav-item">
+								<a class="nav-link text-white" href="#">Welcome ${sessionScope.user.username}</a>
 							</li>
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-danger btn-sm" href="/schedule">Sân
-									đã đặt</a></li>
-							<!-- Nút hồ sơ -->
-							<li class="nav-item"><a
-								class="nav-link btn btn-outline-primary btn-sm" href="/profile">
-									<i class="bi bi-person-fill"></i> Hồ sơ
-							</a></li>
+							<li class="nav-item">
+							<a class="nav-link btn btn-sm text-white" href="/logout">Logout</a>
+							</li>
+							<li class="nav-item">
+							<a class="nav-link btn btn-sm text-white" href="/schedule">Sân đã đặt</a>
+							</li>
+							<li class="nav-item d-flex align-items-center">
+    							<!-- Avatar được bọc trong thẻ <a> để có thể bấm vào và chuyển hướng đến hồ sơ -->
+    							<a href="/profile">
+        							<img src="<c:out value='${avatarUrl}' />"
+             						style="width: 40px; height: 40px; border-radius: 50%; margin-right: 8px;"
+             						alt="Avatar">
+    							</a>
+
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a
-								class="nav-link btn btn-outline-primary btn-sm" href="/login">Login</a>
+								class="nav-link btn btn-outline-primary btn-sm text-white" href="/login">Login</a>
 							</li>
 							<li class="nav-item"><a
-								class="nav-link btn btn-outline-success btn-sm" href="/register">Register</a>
+								class="nav-link btn btn-outline-success btn-sm text-white" href="/register">Register</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
