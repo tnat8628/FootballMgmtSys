@@ -1,36 +1,34 @@
 package vn.iostar.services;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.iostar.entity.Booking;
 import vn.iostar.entity.Field;
-import vn.iostar.entity.PricingRule;
-import vn.iostar.repository.FieldRepository;
-import vn.iostar.repository.PricingRuleRepository;
+import vn.iostar.repository.BookingRepository;
 
 @Service
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
-    private FieldRepository fieldRepository;
+    BookingRepository bookingRepository;
 
-    @Autowired
-    private PricingRuleRepository pricingRuleRepository;
-
-    public Field getFieldDetails(int fieldId) {
-        // Lấy thông tin của sân dựa trên fieldId
-        return fieldRepository.findById(fieldId)
-                .orElseThrow(() -> new IllegalArgumentException("Field not found"));
+    @Override
+    public <S extends Booking> S save(S entity) {
+        return bookingRepository.save(entity);
     }
 
-    public BigDecimal getPriceAtTime(int fieldId, Time bookingStartTime) {
-        // Tìm pricing rule dựa trên thời gian đặt
-        return pricingRuleRepository.findPricingRuleByFieldAndTime(fieldId, bookingStartTime)
-                .map(PricingRule::getPricePerHour)
-                .orElse(BigDecimal.ZERO); // Giá mặc định là 0 nếu không có
+    @Override
+    public List<Booking> findBookingsByField(Field field) {
+        return bookingRepository.findByField(field);
     }
+
+    
+
 }
 

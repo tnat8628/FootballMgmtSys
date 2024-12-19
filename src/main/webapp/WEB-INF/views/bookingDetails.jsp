@@ -1,45 +1,65 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Booking Details</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
 <body>
     <div class="container mt-4">
-        <h1 class="mb-4">Booking Details</h1>
+        <h1 class="text-center mb-4">Đặt Sân Bóng</h1>
+        <!-- Form đặt sân -->
+        <form action="/booking/save" method="post" class="p-4 border rounded bg-light">
+            <input type="hidden" name="fieldId" value="${field.fieldId}" />
 
-        <!-- Thông tin sân -->
-        <div class="mb-3">
-            <label class="form-label"><strong>Field Name:</strong></label>
-            <span>${field.fieldName}</span>
-        </div>
+            <!-- Tên sân -->
+            <div class="form-group mb-4">
+                <label for="fieldName" class="form-label fw-bold">Tên Sân</label>
+                <input type="text" class="form-control" id="fieldName" name="fieldName" value="${field.fieldName}" readonly>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Category:</strong></label>
-            <span>${field.category.categoryName}</span>
-        </div>
+            <!-- Lịch thời gian đặt sân -->
+            <h2 class="mb-4">Booked Schedule</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Booking Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="booking" items="${bookings}">
+                        <tr>
+                            <td>${booking.bookingDate}</td>
+                            <td>${booking.startTime}</td>
+                            <td>${booking.endTime}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
 
-        <!-- Thời gian đặt -->
-        <div class="mb-3">
-            <label class="form-label"><strong>Booking Time:</strong></label>
-            <span>${bookingTime}</span>
-        </div>
+            
 
-        <!-- Giá tại thời điểm đặt -->
-        <div class="mb-3">
-            <label class="form-label"><strong>Price per Hour:</strong></label>
-            <span>${price}</span>
-        </div>
+            <!-- Ngày đặt -->
+            <div class="mb-3">
+                <label for="bookingDate" class="form-label"><b>Chọn Ngày:</b></label>
+                <input type="date" id="bookingDate" name="bookingDate" class="form-control"
+                value="${newBooking.bookingDate}" required>
+            </div>
 
-        <!-- Nút xác nhận -->
-        <form action="/processBooking" method="POST">
-            <input type="hidden" name="fieldId" value="${field.fieldId}">
-            <input type="hidden" name="bookingTime" value="${bookingTime}">
-            <button type="submit" class="btn btn-success">Xác nhận đặt sân</button>
+            <!-- Chọn giờ bắt đầu -->
+            <div class="mb-3">
+                <label for="startTime" class="form-label"><b>Chọn giờ bắt đầu:</b></label>
+                <input type="text" id="startTime" name="startTime" class="form-control"
+                value="${newBooking.startTime}" placeholder="Nhập giờ bắt đầu" required>
+            </div>
+
+            <!-- Chọn giờ kết thúc -->
+            <div class="mb-3">
+                <label for="endTime" class="form-label"><b>Chọn giờ kết thúc:</b></label>
+                <input type="text" id="endTime" name="endTime" class="form-control"
+                value="${newBooking.endTime}" placeholder="Nhập giờ kết thúc" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Xác Nhận Đặt Sân</button>
         </form>
     </div>
 </body>

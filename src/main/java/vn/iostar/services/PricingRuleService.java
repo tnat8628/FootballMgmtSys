@@ -24,5 +24,5 @@ public interface PricingRuleService {
 
 	Optional<PricingRule> findPricingRuleByFieldAndTime(int fieldId, Time bookingStartTime);
 	
-	
+	List<PricingRule> findByFieldId(int fieldId);
 }
