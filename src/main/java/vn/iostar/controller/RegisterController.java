@@ -1,6 +1,7 @@
 package vn.iostar.controller;
 
 import java.sql.Date;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,13 @@ public class RegisterController {
             return "register"; // Quay lại trang đăng ký với thông báo lỗi
         }
 
+        // Kiểm tra chính sách mật khẩu
+        String passwordValidationMessage = isStrongPassword(password, username);
+        if (passwordValidationMessage != null) {
+            model.addAttribute("error", passwordValidationMessage);
+            return "register";
+        }
+
         // Kiểm tra xem email đã tồn tại hay chưa
         if (userService.findByEmail(email) != null) {
             model.addAttribute("error", "Email đã tồn tại.");
@@ -67,7 +75,7 @@ public class RegisterController {
         // Gán thời gian hiện tại cho createDate
         newUser.setCreateDate(new Date(System.currentTimeMillis()));
         
-     // Gán avatar mặc định nếu chưa có
+        // Gán avatar mặc định nếu chưa có
         if (newUser.getAvatar() == null || newUser.getAvatar().trim().isEmpty()) {
             newUser.setAvatar("default-avatar.jpg");
         }
@@ -85,5 +93,37 @@ public class RegisterController {
             model.addAttribute("error", "Đăng ký không thành công. Vui lòng thử lại sau.");
             return "register"; // Quay lại trang đăng ký với thông báo lỗi
         }
+    }
+
+    private String isStrongPassword(String password, String identifier) {
+        // Kiểm tra độ dài tối thiểu
+        if (password.length() < 12) {
+            return "Mật khẩu phải có ít nhất 12 ký tự.";
+        }
+
+        // Kiểm tra ít nhất hai nhóm ký tự (chữ hoa, chữ thường, số, ký tự đặc biệt)
+        int count = 0;
+        if (Pattern.compile("[A-Z]").matcher(password).find()) count++;
+        if (Pattern.compile("[a-z]").matcher(password).find()) count++;
+        if (Pattern.compile("\\d").matcher(password).find()) count++;
+        if (Pattern.compile("[!@#$%^&*(),.?\":{}|<>]").matcher(password).find()) count++;
+        if (count < 2) {
+            return "Mật khẩu phải chứa ít nhất hai nhóm ký tự: chữ hoa, chữ thường, số hoặc ký tự đặc biệt.";
+        }
+
+        // Kiểm tra từ phổ biến
+        String[] commonWords = {"password", "admin", "123456", "qwerty"};
+        for (String word : commonWords) {
+            if (password.toLowerCase().contains(word)) {
+                return "Mật khẩu không được chứa từ phổ biến trong từ điển.";
+            }
+        }
+
+        // Kiểm tra định danh không xuất hiện trong mật khẩu
+        if (password.toLowerCase().contains(identifier.toLowerCase())) {
+            return "Mật khẩu không được chứa định danh của bạn.";
+        }
+
+        return null; // Mật khẩu hợp lệ
     }
 }
