@@ -1,6 +1,7 @@
 package vn.iostar.controller;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,6 +104,12 @@ public class ProfileController {
 	                return "redirect:/profile";
 	            }
 
+	            String passwordValidationMessage = isStrongPassword(password, currentUser.getUsername());
+	            if (passwordValidationMessage != null) {
+	                redirectAttributes.addFlashAttribute("message", passwordValidationMessage);
+	                return "redirect:/profile";
+	            }
+
 	            currentUser.setPassword(password);
 	        }
 
@@ -117,7 +124,34 @@ public class ProfileController {
 	    return "redirect:/profile";
 	}
 
-	// Đăng xuất người dùng
+	private String isStrongPassword(String password, String identifier) {
+	    if (password.length() < 12) {
+	        return "Mật khẩu phải có ít nhất 12 ký tự.";
+	    }
+
+	    int count = 0;
+	    if (Pattern.compile("[A-Z]").matcher(password).find()) count++;
+	    if (Pattern.compile("[a-z]").matcher(password).find()) count++;
+	    if (Pattern.compile("\\d").matcher(password).find()) count++;
+	    if (Pattern.compile("[!@#$%^&*(),.?\":{}|<>]").matcher(password).find()) count++;
+	    if (count < 2) {
+	        return "Mật khẩu phải chứa ít nhất hai nhóm ký tự: chữ hoa, chữ thường, số hoặc ký tự đặc biệt.";
+	    }
+
+	    String[] commonWords = {"password", "admin", "123456", "qwerty"};
+	    for (String word : commonWords) {
+	        if (password.toLowerCase().contains(word)) {
+	            return "Mật khẩu không được chứa từ phổ biến trong từ điển.";
+	        }
+	    }
+
+	    if (password.toLowerCase().contains(identifier.toLowerCase())) {
+	        return "Mật khẩu không được chứa định danh của bạn.";
+	    }
+
+	    return null;
+	}
+
 	@PostMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
